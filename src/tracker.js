@@ -13,7 +13,7 @@ export class Tracker {
 
 	start() {
 		this._watcher = Location.watchPositionAsync({
-			accuracy: Location.Accuracy.BestForNavigation
+			accuracy: Location.Accuracy.Highest
 		}, this._change);
 		return Promise.resolve();
 	}

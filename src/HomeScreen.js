@@ -81,6 +81,7 @@ export class HomeScreen extends Component {
 	render() {
 		return this.state.connected ? (
 			<MapView style={styles.container}
+							 maxZoomLevel={16}
 							 region={{
 								 latitude: this.state.user?.location?.coords?.latitude || 0,
 								 longitude: this.state.user?.location?.coords?.longitude || 0,
