@@ -1,0 +1,37 @@
+{
+	"expo": {
+		"name": "Garbage Truck Tracker",
+		"slug": "garbage-truck-tracker",
+		"privacy": "public",
+		"sdkVersion": "32.0.0",
+		"platforms": [
+			"ios",
+			"android"
+		],
+		"version": "1.0.0",
+		"orientation": "portrait",
+		"icon": "./assets/icon.png",
+		"splash": {
+			"image": "./assets/splash.png",
+			"resizeMode": "contain",
+			"backgroundColor": "#000"
+		},
+		"updates": {
+			"fallbackToCacheTimeout": 0
+		},
+		"assetBundlePatterns": [
+			"**/*"
+		],
+		"android": {
+			"package": "com.sadrasamadi.garbagetrucktracker",
+			"config": {
+				"googleMaps": {
+					"apiKey": "AIzaSyAuueElIbojFWN2IWXEP0hk-6aybvaIOqs"
+				}
+			}
+		},
+		"ios": {
+			"supportsTablet": true
+		}
+	}
+}
