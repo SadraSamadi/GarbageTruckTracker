@@ -1,4 +1,3 @@
-import {boundMethod} from 'autobind-decorator';
 import {registerSelf} from './ioc';
 import {Location} from 'expo';
 import {Subject} from 'rxjs';
@@ -14,18 +13,16 @@ export class Tracker {
 	start() {
 		this._watcher = Location.watchPositionAsync({
 			accuracy: Location.Accuracy.Highest
-		}, this._change);
+		}, ::this._change);
 		return Promise.resolve();
 	}
 
-	@boundMethod
 	_change(location) {
 		this._onLocation.next(location);
 	}
 
 	stop() {
-		if (this._watcher)
-			this._watcher.remove();
+		this._watcher?.remove();
 		return Promise.resolve();
 	}
 

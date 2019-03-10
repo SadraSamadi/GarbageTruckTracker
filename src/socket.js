@@ -1,5 +1,4 @@
 import {registerSelf} from './ioc';
-import {boundMethod} from 'autobind-decorator';
 import io from 'socket.io-client';
 import {Subject} from 'rxjs';
 
@@ -18,54 +17,47 @@ export class Socket {
 
 	start(url) {
 		this._socket = io(url);
-		this._socket.on('connect', this._connect);
+		this._socket.on('connect', ::this._connect);
 		return Promise.resolve();
 	}
 
 	register(name) {
 		this._socket.emit('register', name);
-		this._socket.on('registered', this._registered);
+		this._socket.on('registered', ::this._registered);
 	}
 
 	update(location) {
 		this._socket.emit('update:location', location);
 	}
 
-	@boundMethod
 	_connect() {
-		this._socket.on('disconnect', this._disconnect);
+		this._socket.on('disconnect', ::this._disconnect);
 		this._onConnect.next();
 	}
 
-	@boundMethod
 	_registered(data) {
-		this._socket.on('updated:location', this._updated);
-		this._socket.on('added', this._added);
-		this._socket.on('left', this._left);
+		this._socket.on('updated:location', ::this._updated);
+		this._socket.on('added', ::this._added);
+		this._socket.on('left', ::this._left);
 		this._onRegistered.next(data);
 	}
 
-	@boundMethod
 	_updated(data) {
 		this._onUpdated.next(data);
 	}
 
-	@boundMethod
 	_added(data) {
 		this._onAdded.next(data);
 	}
 
-	@boundMethod
 	_left(id) {
 		this._onLeft.next(id);
 	}
 
-	@boundMethod
 	_disconnect() {
 		this._onDisconnect.next();
 	}
 
-	@boundMethod
 	stop() {
 		if (this._socket.connected)
 			this._socket.close();

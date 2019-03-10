@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {ActivityIndicator, Image, StyleSheet, Text, View} from 'react-native';
 import {MapView} from 'expo';
-import {boundMethod} from 'autobind-decorator';
 import {container} from './ioc';
 import {Manager} from './manager';
 
@@ -33,26 +32,25 @@ export class HomeScreen extends Component {
 
 	constructor(props) {
 		super(props);
+		this._manager = container.get(Manager);
 		this.state = {
 			connected: false,
 			user: null,
 			users: null
 		};
-		this._manager = container.get(Manager);
 	}
 
 	componentDidMount() {
 		this._manager.connected()
-			.subscribe(this._connected);
+			.subscribe(::this._connected);
 		this._manager.user()
-			.subscribe(this._user);
+			.subscribe(::this._user);
 		this._manager.users()
-			.subscribe(this._users);
+			.subscribe(::this._users);
 		let url = this.props.navigation.getParam('url');
 		this._manager.start(url);
 	}
 
-	@boundMethod
 	_connected(connected) {
 		this.setState({connected});
 		if (connected)
@@ -64,12 +62,10 @@ export class HomeScreen extends Component {
 		this._manager.register(name);
 	}
 
-	@boundMethod
 	_user(user) {
 		this.setState({user});
 	}
 
-	@boundMethod
 	_users(users) {
 		this.setState({users});
 	}
@@ -89,7 +85,7 @@ export class HomeScreen extends Component {
 								 longitudeDelta: 0
 							 }}>
 				{this._renderMarker(this.state.user)}
-				{this.state.users?.map(this._renderMarker)}
+				{this.state.users?.map(::this._renderMarker)}
 			</MapView>
 		) : (
 			<View style={styles.container}>
@@ -99,7 +95,6 @@ export class HomeScreen extends Component {
 		);
 	}
 
-	@boundMethod
 	_renderMarker(user) {
 		let img = user?.id === this.state.user?.id ?
 			require('../assets/truck-green.png') :

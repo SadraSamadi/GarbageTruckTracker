@@ -8,7 +8,6 @@
 		"eject": "expo eject"
 	},
 	"dependencies": {
-		"autobind-decorator": "^2.4.0",
 		"axios": "^0.18.0",
 		"expo": "^32.0.0",
 		"faker": "^4.1.0",
@@ -26,6 +25,7 @@
 		"url": "^0.11.0"
 	},
 	"devDependencies": {
+		"@babel/plugin-proposal-function-bind": "^7.2.0",
 		"@types/expo": "^32.0.5",
 		"@types/faker": "^4.1.5",
 		"@types/lodash": "^4.14.122",
