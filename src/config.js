@@ -6,7 +6,7 @@ const opts = __DEV__ ? {
 	port: 3303
 } : {
 	protocol: 'https',
-	hostname: 'garbage-truck-tracker.localtunnel.me'
+	hostname: 'garbage-truck-tracker.herokuapp.com'
 };
 
 export default {
